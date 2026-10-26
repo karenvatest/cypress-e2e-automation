@@ -1,0 +1,24 @@
+{
+  "name": "cypress-e2e-automation-1",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/karenvatest/cypress-e2e-automation#readme",
+  "bugs": {
+    "url": "https://github.com/karenvatest/cypress-e2e-automation/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karenvatest/cypress-e2e-automation.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "cypress run", 
+    "cy:open": "cypress open"
+  },
+  "devDependencies": {
+    "cypress": "^16.2.0"
+  }
+}
