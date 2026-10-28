@@ -2,6 +2,14 @@ import LoginPage from '../pages/LoginPage';
 describe("Login tests", () =>{
     const loginPage = new LoginPage();
     // TC_Basic_01: Verify login with valid credentials
+
+    it('Should login successfully using a custom command', () => {
+        cy.login('user@premiumbank.com', 'Bank@123');
+        cy.get('#login-success')
+        .should('be.visible')
+        .and('contain.text', 'Login Successful! Welcome to Premium Banking.');
+    });
+
     it("Should login successfully with valid credentials", () =>{
         loginPage.login('user@premiumbank.com', 'Bank@123');
         loginPage.userDisplay.contains('Login Successful! Welcome to Premium Banking.').should('be.visible');

@@ -23,3 +23,9 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+Cypress.Commands.add('login', (email, password) => {
+  cy.visit('https://www.qapractice.com/practice-login-form');
+  cy.get('#login-email').clear().type(email);
+  cy.get('#login-password').clear().type(password);
+  cy.get('#login-submit').click();
+});
