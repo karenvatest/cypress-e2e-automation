@@ -3,20 +3,19 @@ describe("Login tests", () =>{
     const loginPage = new LoginPage();
     
     // TC_Basic_01: Verify login with valid credentials with fixtures
-    it.only('Should login successfully using fixture data', () =>{
+    it('Should login successfully using fixture data', () =>{
         cy.fixture('loginData').then((data) =>{
             cy.login(data.validUser.email, data.validUser.password);
         });
         cy.get('#login-success').should('be.visible').and('contain.text', 'Login Successful! Welcome to Premium Banking.');
     });
 
-    it.only('Should invalid login using fixture data', () =>{
+    it('Should invalid login using fixture data', () =>{
         cy.fixture('loginData').then((data) =>{
             cy.login(data.invalidUser.email, data.invalidUser.password);
         });
         cy.get('#login-error').should('be.visible').and('contain.text', 'Invalid email id and password');
     });
-
 
     // TC_Basic_01.2: Verify login with valid credentials with custom commands
     it('Should login successfully using a custom command', () => {
@@ -25,10 +24,15 @@ describe("Login tests", () =>{
         .and('contain.text', 'Login Successful! Welcome to Premium Banking.');
     });
 
+    // TC_Basic_01.3: Verify login with valid credentials with fixtures
+    it("Should login successfully with valid credentials", () =>{
+        loginPage.login('user@premiumbank.com', 'Bank@123');
+        loginPage.userDisplay.contains('Login Successful! Welcome to Premium Banking.').should('be.visible');
+    });
 
     // TC_Basic_01.4: Verify login with env
-    it('Should load login URL from environment variables', () => {
-        cy.log(Cypress.env('loginUrl'));
+    it.only('Should load login URL from environment variables', () => {
+        cy.log(Cypress.expose('loginUrl'));
         loginPage.visit();
         loginPage.emailInput.should('be.visible');
     });
@@ -102,8 +106,5 @@ describe("Login tests", () =>{
         loginPage.emailInput.should('have.value', '');
         loginPage.passwordInput.should('have.value', '');
     });
-
     
-
-    
-})
+});
