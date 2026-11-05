@@ -25,10 +25,12 @@ describe("Login tests", () =>{
         .and('contain.text', 'Login Successful! Welcome to Premium Banking.');
     });
 
-    // TC_Basic_01.3: Verify login with valid credentials with fixtures
-    it("Should login successfully with valid credentials", () =>{
-        loginPage.login('user@premiumbank.com', 'Bank@123');
-        loginPage.userDisplay.contains('Login Successful! Welcome to Premium Banking.').should('be.visible');
+
+    // TC_Basic_01.4: Verify login with env
+    it('Should load login URL from environment variables', () => {
+        cy.log(Cypress.env('loginUrl'));
+        loginPage.visit();
+        loginPage.emailInput.should('be.visible');
     });
 
     // TC_Basic_02: Verify login with invalid credentials

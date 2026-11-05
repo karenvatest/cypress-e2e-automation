@@ -8,4 +8,7 @@ module.exports = defineConfig({
       // implement node event listeners here
     },
   },
+   env: {
+    loginUrl: "https://www.qapractice.com/practice-login-form"
+  }
 });
