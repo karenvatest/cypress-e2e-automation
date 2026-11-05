@@ -21,7 +21,7 @@ class LoginPage{
 
     // Actions
     visit(){
-        cy.visit('https://www.qapractice.com/practice-login-form');
+        cy.visit(Cypress.expose('loginUrl'));
     }
     enterEmail(email){
         this.emailInput.type(email);
