@@ -1,9 +1,10 @@
-import LoginPage from '../pages/LoginPage';
+import LoginPage from '../../pages/LoginPage';
 describe("Login tests", () =>{
     const loginPage = new LoginPage();
     
     // TC_Basic_01: Verify login with valid credentials with fixtures
     it('Should login successfully using fixture data', () =>{
+        loginPage.visit();
         cy.fixture('loginData').then((data) =>{
             cy.login(data.validUser.email, data.validUser.password);
         });
@@ -31,7 +32,7 @@ describe("Login tests", () =>{
     });
 
     // TC_Basic_01.4: Verify login with env
-    it.only('Should load login URL from environment variables', () => {
+    it('Should load login URL from environment variables', () => {
         cy.log(Cypress.expose('loginUrl'));
         loginPage.visit();
         loginPage.emailInput.should('be.visible');
@@ -39,7 +40,9 @@ describe("Login tests", () =>{
 
     // TC_Basic_02: Verify login with invalid credentials
     it("Should show an error with invalid credentials", () =>{
-        loginPage.login('user@premiumbank.com', 'Bank@1');
+        cy.fixture('loginData').then((data) => {
+            cy.login(data.invalidUser.email, data.invalidUser.password);
+        });
         loginPage.userNotDisplay.contains('Invalid email id and password').should('be.visible');
     });
 
@@ -70,21 +73,29 @@ describe("Login tests", () =>{
 
     // TC_Basic_06: Verify login with valid credentials but pressing enter key
     it('Should login using Enter key', () =>{
-        loginPage.loginUsingEnter('user@premiumbank.com', 'Bank@123');
+        cy.fixture('loginData').then((data) =>{
+            loginPage.loginUsingEnter(data.validUser.email, data.validUser.password);
+        });
         loginPage.userDisplay.contains('Login Successful! Welcome to Premium Banking.').should('be.visible');
     });
 
     // TC_Basic_07: Verify password field is masked
     it('Should show masked password with dots', () =>{
         loginPage.visit();
-        loginPage.enterPassword('Bank@123');
+        cy.fixture('loginData').then((data) =>{
+            loginPage.enterPassword(data.validUser.password);
+        });
         loginPage.passwordInput.should('have.attr', 'type', 'password');
     });
+
+    
 
     // TC_Basic_08: Verify Error message when 'Password is required'
     it('Should show validation when password field is empty', () =>{
         loginPage.visit();
-        loginPage.enterEmail('user@premiumbank.com');
+        cy.fixture('loginData').then((data) =>{
+            loginPage.enterEmail(data.validUser.email);
+        });
         loginPage.clickLogin();
         loginPage.userNotDisplay.contains('Password is required').should('be.visible');
     });
@@ -100,8 +111,10 @@ describe("Login tests", () =>{
     // TC_Basic_10: Verify that the inputs can be cleaned
     it('Should clear login form fields', () =>{
         loginPage.visit();
-        loginPage.enterEmail('user@premiumbank.com');
-        loginPage.enterPassword('Bank@123');
+        cy.fixture('loginData').then((data) =>{
+            loginPage.enterEmail(data.validUser.email);
+            loginPage.enterPassword(data.invalidUser.password);
+        });
         loginPage.clearLoginForm();
         loginPage.emailInput.should('have.value', '');
         loginPage.passwordInput.should('have.value', '');
