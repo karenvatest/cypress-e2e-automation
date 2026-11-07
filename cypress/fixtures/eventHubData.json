@@ -1,0 +1,18 @@
+{
+    "validUser": {
+        "email": "test03@testing.com",
+        "password": "Test01.ing"
+    },
+    "registration": {
+        "password": "Test.ing1"
+    },
+    "booking": {
+        "eventName": "Hollywood Monsoon Night",
+        "customerName": "Aura Ola",
+        "customerEmail": "test03@testing.com",
+        "phone": "1234567890",
+        "ticketCount": 2,
+        "expectedTotal": "$5,000"
+    }
+    
+}
