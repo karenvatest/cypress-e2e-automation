@@ -167,4 +167,4 @@ cypress-e2e-automation/
 
 QA Manual Engineer | QA Automation in Progress
 
-** ⭐ Learning by building, testing, and automating.**
+**⭐ Learning by building, testing, and automating.**
